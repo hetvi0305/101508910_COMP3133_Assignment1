@@ -1,8 +1,8 @@
-# COMP3133 Assignment 1 --- Employee Management System (GraphQL)
+# COMP3133 Assignment 1 - Employee Management System (GraphQL)
 
 **Student Name:** Hetvi Patel\
 **Student ID:** 101508910\
-**Course:** COMP3133 --- Full Stack Development\
+**Course:** COMP3133 - Full Stack Development\
 **Semester:** Winter 2026
 
 ------------------------------------------------------------------------
@@ -79,24 +79,21 @@ Create a `.env` file in the root folder with:
 
 1.  Install dependencies
 
-```{=html}
-<!-- -->
-```
+    ```
     npm install
+    ```
 
 2.  Start the server
 
-```{=html}
-<!-- -->
-```
+    ```
     npm run dev
+    ```
 
 3.  GraphQL endpoint:
 
-```{=html}
-<!-- -->
-```
+    ```
     http://localhost:4000/graphql
+    ```
 
 ------------------------------------------------------------------------
 
@@ -231,22 +228,3 @@ scalar and stored as a URL in MongoDB.
 
 All APIs were tested using **Postman** and screenshots are included in
 the submission DOCX.
-
-------------------------------------------------------------------------
-
-##  Submission Contents
-
--   Source code (ZIP)
--   README.md
--   Postman collection (JSON)
--   MongoDB screenshots
--   API test screenshots (DOCX)
--   GitHub repository link
-
-------------------------------------------------------------------------
-
-## Author
-
-Hetvi Patel\
-Student ID: 101508910\
-COMP3133 --- Winter 2026
