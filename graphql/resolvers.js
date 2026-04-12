@@ -118,26 +118,40 @@ module.exports = {
         }
         },
 
-        async searchEmployeeByDesignationOrDepartment(_, { designation, department }, context) {
+        async searchEmployeeByDesignationOrDepartment(_, { designation, department }) {
         try {
-            // requireAuth(context);
-            if (!designation && !department) {
+            const term = designation || department;
+
+            if (!term) {
             return {
                 success: false,
                 message: "Provide designation or department",
                 employees: [],
-                errors: [{ field: "designation/department", message: "At least one filter is required" }],
+                errors: [{ field: "designation/department", message: "Search term required" }],
             };
             }
 
-            const filter = {};
-            if (designation) filter.designation = designation;
-            if (department) filter.department = department;
+            const employees = await Employee.find({
+            $or: [
+                { designation: { $regex: term, $options: "i" } },
+                { department: { $regex: term, $options: "i" } }
+            ]
+            }).sort({ created_at: -1 });
 
-            const employees = await Employee.find(filter).sort({ created_at: -1 });
-            return { success: true, message: "Employees fetched", employees, errors: [] };
+            return {
+            success: true,
+            message: "Employees fetched",
+            employees,
+            errors: []
+            };
+
         } catch (err) {
-            return { success: false, message: "Failed to search employees", employees: [], errors: toErrorDetails(err) };
+            return {
+            success: false,
+            message: "Failed to search employees",
+            employees: [],
+            errors: toErrorDetails(err)
+            };
         }
         },
     },
@@ -263,6 +277,12 @@ module.exports = {
             // requireAuth(context);
 
             const { eid, ...updates } = args;
+
+            Object.keys(updates).forEach((key) => {
+            if (updates[key] === undefined || updates[key] === null || updates[key] === "") {
+                delete updates[key];
+            }
+            });
 
             // Validate only if fields exist
             if (updates.email) {
